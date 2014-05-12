@@ -166,26 +166,11 @@ Template.areas.focuses = function () {
 ////////// Focuses //////////
 
 Template.focus_item.events({
-  // 'mousedown .focus': function (evt) { // select focus
-  //   Router.setFocus(this._id);
-  // },
-
-  'click .focus': function (evt) {
-    // prevent clicks on <a> from refreshing the page.
-    evt.preventDefault();
-  },
-
   'dblclick .focus-name': function (evt, tmpl) { // start editing focus name
     Session.set('editing_focusname', this._id);
     Deps.flush(); // force DOM redraw, so we can focus the edit field
     activateInput(tmpl.find("#focus-name-input"));
   },
-
-  // 'click .archive': function () {
-  //   if (confirm("Are you sure you want to archive this focus?")) {
-  //     Focuses.update(this._id, {$set: {archived: true}});
-  //   }
-  // },
 
   'click .destroy': function () {
     if (confirm("Are you sure you want to DESTROY this focus?")) {
@@ -242,9 +227,6 @@ var AreasRouter = Backbone.Router.extend({
   },
   setArea: function (area_id) {
     this.navigate(area_id, true);
-  },
-  setFocus: function (focus_id) {
-    this.navigate(focus_id, true);
   }
 });
 

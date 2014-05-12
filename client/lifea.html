@@ -16,10 +16,7 @@
   </header>
 
   <div class="container">
-    <h2>Areas</h2>
-    <div class="row" id="areas">
-      {{> areas}}
-    </div>
+    {{> areas}}
   </div>
 </body>
 
@@ -34,43 +31,52 @@
 </template>
 
 <template name="areas">
-  {{#if loading}}
-    <div class="span12">Loading...</div>
+  <h2>{{#if archives}}Archived {{/if}} Areas</h2>
 
-  {{else}}
-    {{#each areas}}
-      <div class="span3">
-        <div class="well well-small area {{selected}}">
-          {{#if archives}}
-            <div class="destroy pull-right"><i class="icon-remove"></i></div>
-            <div class="unarchive pull-right"><i class="icon-play"></i></div>
-          {{else}}
-            <div class="archive pull-right"><i class="icon-pause"></i></div>
-          {{/if}}
-          <div class="area-name lead">
-            {{#if editing}}
-              <input id="area-name-input" type="text" value="{{name}}" />
+  <div class="row" id="areas">
+    {{#if loading}}
+      <div class="span12">Loading...</div>
+
+    {{else}}
+      {{#each areas}}
+        <div class="span3">
+          <div class="well well-small area {{selected}}">
+            {{#if archives}}
+              <div class="destroy pull-right"><i class="icon-remove"></i></div>
+              <div class="unarchive pull-right"><i class="icon-play"></i></div>
             {{else}}
-              <a href="/{{_id}}">{{name}}</a>
+              <div class="archive pull-right"><i class="icon-pause"></i></div>
             {{/if}}
+            <div class="area-name lead">
+              {{#if editing}}
+                <input id="area-name-input" type="text" value="{{name}}" />
+              {{else}}
+                <a href="/{{_id}}">{{name}}</a>
+              {{/if}}
+            </div>
+
+            <ul class="unstyled" id="focus-list">
+              {{#each focuses}}
+                {{> focus_item}}
+              {{/each}}
+            </ul>
+
+            {{#unless archives}}
+              <input class="input-block-level" type="text" id="new-focus" placeholder="Add a focus..." />
+            {{/unless}}
           </div>
-
-          <ul class="unstyled" id="focus-list">
-            {{#each focuses}}
-              {{> focus_item}}
-            {{/each}}
-          </ul>
-          <input class="input-block-level" type="text" id="new-focus" placeholder="Add a focus..." />
         </div>
-      </div>
-    {{/each}}
+      {{/each}}
 
-    <div class="span3">
-      <div class="well well-small">
-        <input class="input-block-level" type="text" id="new-area" placeholder="Add an area..." />
-      </div>
-    </div>
-  {{/if}}
+      {{#unless archives}}
+        <div class="span3">
+          <div class="well well-small">
+            <input class="input-block-level" type="text" id="new-area" placeholder="Add an area..." />
+          </div>
+        </div>
+      {{/unless}}
+    {{/if}}
+  </div>
 </template>
 
 <template name="focus_item">
@@ -80,7 +86,6 @@
       {{#if editing}}
         <input class="input-medium" id="focus-name-input" type="text" value="{{name}}" />
       {{else}}
-        <!-- <a href="/{{_id}}">{{name}}</a> -->
         {{name}}
       {{/if}}
     </div>
