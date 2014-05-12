@@ -1,0 +1,14 @@
+/* CSS declarations go here */
+
+.area.selected {
+  background-color: #F5F5D5;
+}
+
+.area-name,
+.focus-name {
+  cursor: pointer;
+}
+
+.area .focus {
+  background: white;
+}

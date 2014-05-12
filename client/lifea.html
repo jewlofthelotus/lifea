@@ -1,0 +1,88 @@
+<head>
+  <title>lifea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <header class="navbar navbar-static-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a href="/" class="brand">lifea</a>
+        <ul class="nav pull-right">
+          {{> controls}}
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Areas</h2>
+    <div class="row" id="areas">
+      {{> areas}}
+    </div>
+  </div>
+</body>
+
+<template name="controls">
+  <li><a class="control archives" href="">
+    {{#if archives}}
+      Back to Active Areas
+    {{else}}
+      Archived Areas
+    {{/if}}
+  </a></li>
+</template>
+
+<template name="areas">
+  {{#if loading}}
+    <div class="span12">Loading...</div>
+
+  {{else}}
+    {{#each areas}}
+      <div class="span3">
+        <div class="well well-small area {{selected}}">
+          {{#if archives}}
+            <div class="destroy pull-right"><i class="icon-remove"></i></div>
+            <div class="unarchive pull-right"><i class="icon-play"></i></div>
+          {{else}}
+            <div class="archive pull-right"><i class="icon-pause"></i></div>
+          {{/if}}
+          <div class="area-name lead">
+            {{#if editing}}
+              <input id="area-name-input" type="text" value="{{name}}" />
+            {{else}}
+              <a href="/{{_id}}">{{name}}</a>
+            {{/if}}
+          </div>
+
+          <ul class="unstyled" id="focus-list">
+            {{#each focuses}}
+              {{> focus_item}}
+            {{/each}}
+          </ul>
+          <input class="input-block-level" type="text" id="new-focus" placeholder="Add a focus..." />
+        </div>
+      </div>
+    {{/each}}
+
+    <div class="span3">
+      <div class="well well-small">
+        <input class="input-block-level" type="text" id="new-area" placeholder="Add an area..." />
+      </div>
+    </div>
+  {{/if}}
+</template>
+
+<template name="focus_item">
+  <li class="well well-small focus">
+    <div class="pull-right destroy"><i class="icon-remove"></i></div>
+    <div class="focus-name">
+      {{#if editing}}
+        <input class="input-medium" id="focus-name-input" type="text" value="{{name}}" />
+      {{else}}
+        <!-- <a href="/{{_id}}">{{name}}</a> -->
+        {{name}}
+      {{/if}}
+    </div>
+  </li>
+</template>
